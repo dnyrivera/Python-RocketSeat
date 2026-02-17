@@ -1,0 +1,9 @@
+[project]
+name = "Rocketseat - Python Training"
+version = "0.1.0"
+description = "Rocketseat Python Training"
+authors = [{name="Donny Rivera", email="donny.rivera@gmail.com"}]
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+where = ["src"]
