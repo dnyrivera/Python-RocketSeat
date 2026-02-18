@@ -9,6 +9,7 @@ venv/
 env/
 venv-rkt
 .venv-rkt
+.venv-rktair
 
 # Environment variables
 .env
