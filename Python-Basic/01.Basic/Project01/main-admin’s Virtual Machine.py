@@ -29,19 +29,12 @@ def update_task(tasks: list[Dict[str, Any]], task_index: int, task_new_name: str
             f"Task Name: {old_task_name} updated to -> {tasks[task_index-1]['name']}")
 
 
-def complete_task(tasks: list[Dict[str, Any]], task_index: int) -> None:
-    if task_index < 1 or task_index > len(tasks):
-        print("Invalid task index")
-    else:
-        tasks[task_index-1]["completed"] = True
-        print(f"Task {task_index} was completed!\n")
+def complete_task(tasks: list[Dict[str, Any]]) -> None:
+    pass
 
 
-def delete_completed_tasks(tasks: list[Dict[str, Any]]):
-    for task in tasks:
-        if task["completed"]:
-            tasks.remove(task)
-    print("All Completed Tasked have been deleted")
+def delete_completed_tasks():
+    print("Delete Completed Tasks")
 
 
 tasks_list: List[Dict[str, Any]] = []
@@ -60,25 +53,21 @@ while True:
     if option == "1":
         task_name = input("Input the New Task name: ")
         add_task(tasks=tasks_list, task_name=task_name)
-
     elif option == "2":
         list_tasks(tasks=tasks_list)
-
     elif option == "3":
         list_tasks(tasks=tasks_list)
         task_index = int(input("Number of the task to update: "))
         new_task_name = input("Input the nem task name: ")
         update_task(tasks_list, task_index, new_task_name)
-
     elif option == "4":
-        list_tasks(tasks_list)
-        task_index = int(input("Number of the task to complete: "))
-        complete_task(tasks_list, task_index)
-
+        list_tasks((tasks_list))
+        task_index = int()
+        print("Complete Task")
     elif option == "5":
-        delete_completed_tasks(tasks_list)
-        list_tasks(tasks_list)
-
+        print("Delete Completed Tasks")
     elif option == "6":
-        print("Program Finished")
+        print("Exit")
         break
+
+print("Program Finished")
