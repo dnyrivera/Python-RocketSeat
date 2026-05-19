@@ -6,10 +6,11 @@ class Calculator1:
         body = request.json
         input_data = self.__validate_body(body)
         print(input_data)
+        return {"return": input_data}
 
     def __validate_body(self, body: dict) -> float:
         if "number" not in body:
-            raise Exception("Body Bad Formatted")
+            raise ValueError("Body Bad Formatted")
 
         input_data = body["number"]
         return input_data
