@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from flask import Flask
 from src.main.routes.calculators import calc_routes_bp
 

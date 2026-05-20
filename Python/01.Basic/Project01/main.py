@@ -1,14 +1,14 @@
-import subprocess
 import platform
+import subprocess
 import time
 from typing import TypedDict
 
 
 def clear_console():
     if platform.system() == "Windows":
-        subprocess.run(["cmd", "/c", "cls"])
+        subprocess.run(["cmd", "/c", "cls"], check=False)
     else:
-        subprocess.run(["clear"])
+        subprocess.run(["clear"], check=False)
 
 
 class Task(TypedDict):
@@ -17,10 +17,7 @@ class Task(TypedDict):
 
 
 def add_task(tasks: list[Task], task_name: str) -> None:
-    new_task: Task = {
-        "name": task_name,
-        "completed": False
-    }
+    new_task: Task = {"name": task_name, "completed": False}
     tasks.append(new_task)
     print(f"\nTask: {new_task['name']} added successfully!\n")
     time.sleep(2)
@@ -41,17 +38,16 @@ def update_task(tasks: list[Task], task_index: int, task_new_name: str) -> None:
     if task_index < 1 or task_index > len(tasks):
         print("Invalid task index")
     else:
-        old_task_name = tasks[task_index-1]["name"]
-        tasks[task_index-1]["name"] = task_new_name
-        print(
-            f"Task Name: {old_task_name} updated to -> {tasks[task_index-1]['name']}")
+        old_task_name = tasks[task_index - 1]["name"]
+        tasks[task_index - 1]["name"] = task_new_name
+        print(f"Task Name: {old_task_name} updated to -> {tasks[task_index-1]['name']}")
 
 
 def complete_task(tasks: list[Task], task_index: int) -> None:
     if task_index < 1 or task_index > len(tasks):
         print("Invalid task index")
     else:
-        tasks[task_index-1]["completed"] = True
+        tasks[task_index - 1]["completed"] = True
         print(f"Task {task_index} was completed!\n")
 
 
@@ -75,8 +71,8 @@ while True:
 
     if option.strip() == "1":
         clear_console()
-        task_name = input("Input the New Task name: ")
-        add_task(tasks=tasks_list, task_name=task_name)
+        new_name = input("Input the New Task name: ")
+        add_task(tasks=tasks_list, task_name=new_name)
 
     elif option.strip() == "2":
         clear_console()
@@ -85,15 +81,15 @@ while True:
     elif option.strip() == "3":
         clear_console()
         list_tasks(tasks=tasks_list)
-        task_index = int(input("Number of the task to update: "))
-        new_task_name = input("Input the nem task name: ")
-        update_task(tasks_list, task_index, new_task_name)
+        update_index = int(input("Number of the task to update: "))
+        new_task_name = input("Input the new task name: ")
+        update_task(tasks_list, update_index, new_task_name)
 
     elif option.strip() == "4":
         clear_console()
         list_tasks(tasks_list)
-        task_index = int(input("Number of the task to complete: "))
-        complete_task(tasks_list, task_index)
+        complete_index = int(input("Number of the task to complete: "))
+        complete_task(tasks_list, complete_index)
 
     elif option.strip() == "5":
         clear_console()

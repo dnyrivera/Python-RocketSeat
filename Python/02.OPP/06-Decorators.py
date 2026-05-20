@@ -1,19 +1,19 @@
+# pylint: disable=invalid-name
 """
 This file is about decorators in Python.
 
-A decorator is a function that takes another function as an argument and returns a modified version of that function. Decorators are a powerful tool in Python that allow you to modify the behavior of functions and methods without modifying their source code.
+A decorator takes another function as an argument and returns a modified
+version of that function, allowing you to change behavior without modifying
+the source code directly.
 
-In this example, we define a basic decorator function that adds some behavior before and after the decorated function is called. We then apply the decorator to the `say_hello` function and call the decorated function.
-
-We also provide an overview of other commonly used decorators in Python, such as `@classmethod`, `@staticmethod`, and `@property`. These decorators are not used in the code in this file, but they are commonly used in Python to modify the behavior of methods and attributes in classes.
-
+Covers: basic decorators, class-based decorators, @classmethod,
+@staticmethod, and @property.
 """
 
 # Basic decorator
-# A decorator is a function that takes another function as an argument and returns a modified version of that function.
+# A decorator takes another function as an argument and returns a modified version.
 
-# Define a decorator function that adds some behavior before and after the decorated function is called
-from typing import Any
+# Define a decorator function that adds some behavior before and after the function
 
 
 def my_decorator(func):
@@ -30,12 +30,12 @@ def my_decorator(func):
     # Return the modified function
     return wrapper
 
+
 # Apply the decorator to the `say_hello` function
 
 
 @my_decorator
 def say_hello():
-    # Call the original function
     print("Hello!")
 
 
@@ -43,26 +43,24 @@ def say_hello():
 say_hello()
 
 # Decorator Commons
+# `@classmethod` - Allows a method to be called on the class itself, not on an instance.
+# `@staticmethod` - Allows a method to be called on the class without instance data.
+# `@property` - Defines a method as a getter for a class attribute.
 
-# `@classmethod` - Decorator that allows a method to be called on the class itself, rather than on an instance of the class.
-
-# `@staticmethod` - Decorator that allows a method to be called on the class itself, without using any instance-specific data.
-
-# `@property` - Decorator that allows you to define a method as a "getter" for a class attribute, allowing you to access the attribute as if it were a variable.
-
-# These decorators are not used in the code in this file, but they are commonly used in Python to modify the behavior of methods and attributes in classes.
-
-# Here's an example of how you can use the `@property` decorator to define a "getter" for a class attribute:
+# Here's an example of using a class as a decorator:
 
 
 class MyClassDecorator:
     def __init__(self, func) -> None:
         self.func = func
 
-    def __call__(self) -> Any:
+    def __call__(self) -> None:
         print("Something is happening before the function runs")
         self.func()
         print("Something is happening after the function runs")
+
+    def describe(self) -> str:
+        return f"Decorator wrapping: {self.func.__name__}"
 
 
 @MyClassDecorator
@@ -73,9 +71,10 @@ def say_hello_on_class():
 say_hello_on_class()
 
 
-# Here's an example of how you can use the `@property` decorator to define a "getter" for a class attribute:
+# Here's an example of `@classmethod` and `@staticmethod`:
 
-class myClass:
+
+class MyClass:
 
     value = 10
 
@@ -86,7 +85,7 @@ class myClass:
         return f"Instance Method: {self.name}"
 
     @classmethod
-    def method_class(cls):  # Can be called without instance using the attribute of the class (cls)
+    def method_class(cls):  # Can be called without instance using the class (cls)
         return f"Class Method: {cls.value}"
 
     @staticmethod
@@ -95,7 +94,7 @@ class myClass:
 
 
 # Usage
-obj = myClass("Example Class")
+obj = MyClass("Example Class")
 
 print(obj.method_instance())  # Need a instance to be called
 print(obj.method_class())  # Can be called without instance
@@ -103,7 +102,8 @@ print(obj.method_static())  # Can be called without instance
 print(obj.value)  # Can be called without instance
 
 
-# Here's an example of how you can use the `@property` decorator to define a "getter" for a class attribute:
+# Here's an example of using `@classmethod` as a factory method:
+
 
 class Car:
     def __init__(self, brand, model, year) -> None:
@@ -111,14 +111,17 @@ class Car:
         self.model = model
         self.year = year
 
+    def describe(self) -> str:
+        return f"{self.brand} {self.model} ({self.year})"
+
     @classmethod
     def create_car(cls, setup):
         brand, model, year = setup.split(",")
         return cls(brand, model, int(year))
 
 
-setup_toyota = "Toyota, Corolla,2022"
-car_01 = Car.create_car(setup=setup_toyota)
+SETUP_TOYOTA = "Toyota, Corolla,2022"
+car_01 = Car.create_car(setup=SETUP_TOYOTA)
 print(f"Marca:{car_01.brand}\nModelo:{car_01.model}\nAno:{car_01.year}")
 
 
@@ -126,6 +129,10 @@ class Mathematic:
     @staticmethod
     def sum_numbers(x: int, y: int) -> int:
         return x + y
+
+    @staticmethod
+    def multiply_numbers(x: int, y: int) -> int:
+        return x * y
 
 
 print(Mathematic.sum_numbers(x=10, y=15))

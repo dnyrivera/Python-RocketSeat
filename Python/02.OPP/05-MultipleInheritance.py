@@ -1,4 +1,6 @@
+# pylint: disable=invalid-name
 from abc import ABC, abstractmethod
+
 
 # Abstract class
 class Animal(ABC):

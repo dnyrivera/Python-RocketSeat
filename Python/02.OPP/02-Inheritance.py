@@ -1,23 +1,27 @@
+# pylint: disable=invalid-name
 """
 This file is about inheritance in object-oriented programming (OOP).
 
-Inheritance is a fundamental concept in object-oriented programming that allows you to create new classes based on existing classes. The new class, called the "child" class, inherits all the attributes and methods of the existing class, called the "parent" class. This allows you to reuse code and create more specialized classes.
+Inheritance allows you to create new classes based on existing classes.
+The child class inherits all attributes and methods of the parent class,
+enabling code reuse and more specialized classes.
 
-In this example, we have an `Animal` class that defines the basic behavior of an animal. The `Animal` class has a `name` attribute and a `walk()` method.
-
-We then create two child classes, `Dog` and `Cat`, that inherit from the `Animal` class. The `Dog` and `Cat` classes have their own attributes and methods, but they also inherit the `name` attribute and `walk()` method from the `Animal` class.
-
-This allows us to create instances of the `Dog` and `Cat` classes that can walk like animals, but also have their own unique behavior.
-
+In this example, the `Animal` class defines basic animal behavior.
+`Dog` and `Cat` inherit from `Animal`, adding their own attributes
+and methods while reusing `name` and `walk()`.
 """
 
-class Animal():
+
+class Animal:
     def __init__(self, name: str) -> None:
         self.name = name
 
     def walk(self) -> None:
         print(f"The animal {self.name} is walking")
-        return
+
+    def describe(self) -> str:
+        return f"Animal: {self.name}"
+
 
 class Dog(Animal):
     def __init__(self, name: str, breed: str) -> None:
@@ -26,7 +30,7 @@ class Dog(Animal):
 
     def bark(self) -> None:
         print(f"The dog {self.name} is barking")
-        return
+
 
 class Cat(Animal):
     def __init__(self, name: str, color: str) -> None:
@@ -35,7 +39,7 @@ class Cat(Animal):
 
     def meow(self) -> None:
         print(f"The cat {self.name} is meowing")
-        return
+
 
 # Example usage
 dog = Dog("Rex", "Labrador")

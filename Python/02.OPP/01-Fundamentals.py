@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 # POO
 """"
 
@@ -14,6 +15,7 @@ I hope this helps! Let me know if you have any other questions.
 # Attribute - > Variables inside a class
 # Method - > Function inside a class
 
+
 class Person:
     # Constructor
     def __init__(self, name: str, age: int) -> None:
@@ -27,6 +29,10 @@ class Person:
         Returns a string with the person's name and age
         """
         return f"Hello, my name is {self.name} and I'm {self.age} years old"
+
+    def birthday(self) -> None:
+        self.age += 1
+
 
 # Object 1
 person1 = Person("Donny", 20)
@@ -43,5 +49,3 @@ print(mensagem)
 
 # Print out the attributes of person2
 print(person2.name, person2.age, sep=" | ")
-
- 

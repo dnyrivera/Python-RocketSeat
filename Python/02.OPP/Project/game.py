@@ -1,6 +1,10 @@
+import os
 import random
 from abc import ABC, abstractmethod
-from IPython.display import clear_output  # clear console output in jupyter
+
+
+def clear_output():
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 class Character(ABC):
@@ -52,27 +56,35 @@ class Hero(Character):
         hit = random.randint(self.level * 4, self.level * 8)
         target.damage(hit)
         print(
-            f"--> {self.name} uses Special Attack on {target.name} and causes {hit} damage!")
+            f"--> {self.name} uses Special Attack on {target.name} and causes {hit} damage!"
+        )
 
 
 class Enemy(Character):
 
-    def __init__(self, name: str, life: int, level: int, type: str) -> None:
+    def __init__(self, name: str, life: int, level: int, enemy_type: str) -> None:
         super().__init__(name, life, level)
-        self.__type = type
+        self.__type = enemy_type
 
     @property
-    def type(self):
+    def enemy_type(self):
         return self.__type
 
     def show_details(self) -> str:
-        return f"==Enemy==\n{super().show_details()}\nType: {self.type}"
+        return f"==Enemy==\n{super().show_details()}\nType: {self.enemy_type}"
+
+    def taunt(self) -> None:
+        print(f"{self.name} taunts you!")
 
 
 class Game:
-    """Game Class to run the game and start the battle between the hero and the enemy in turns"""
+    """Game Class to run the game and start the battle between hero and enemy in turns"""
 
     def __init__(self):
+        self.hero = Hero("Hero", 100, 5, "Strong")
+        self.enemy = Enemy("Bat", 50, 3, "Fly")
+
+    def reset(self):
         self.hero = Hero("Hero", 100, 5, "Strong")
         self.enemy = Enemy("Bat", 50, 3, "Fly")
 
@@ -84,7 +96,8 @@ class Game:
             print(self.enemy.show_details())
 
             choice = input(
-                "\n[1] Normal Attack\n[2] Special Attack\n[3] Run\nChoose an option: ").strip()
+                "\n[1] Normal Attack\n[2] Special Attack\n[3] Run\nChoose an option: "
+            ).strip()
 
             if choice == "1":
                 self.hero.attack(self.enemy)
@@ -101,12 +114,13 @@ class Game:
                 self.enemy.attack(self.hero)
 
             input("\nPress Enter to continue...")
-            clear_output(wait=True)
+            clear_output()
 
         if self.hero.life > 0 and self.enemy.life == 0:
             print("Congratulations, you won the battle!")
         elif self.hero.life == 0:
             print("Game Over - You lost the battle!")
 
-    game = Game()
-    game.start_battle()
+
+game = Game()
+game.start_battle()

@@ -1,3 +1,4 @@
+# pylint: disable=import-error
 from flask import Request as FlaskRequest
 
 
@@ -7,6 +8,9 @@ class Calculator1:
         input_data = self.__validate_body(body)
         print(input_data)
         return {"return": input_data}
+
+    def describe(self) -> str:
+        return "Calculator 1: performs basic number validation and return"
 
     def __validate_body(self, body: dict) -> float:
         if "number" not in body:
